@@ -1,0 +1,520 @@
+[
+  {
+    "alert": {
+      "alert_id": "ALERT-ATO-8921",
+      "alert_type": "ATO",
+      "timestamp": "2026-09-05T08:14:22Z",
+      "rule_name": "RULE_ATO_FOREIGN_IMPS_VELOCITY",
+      "severity": "CRITICAL",
+      "customer_id": "CUST-104921",
+      "account_number": "ACT-8841-9921",
+      "trigger_transaction": {
+        "transaction_id": "TXN-9021-991",
+        "timestamp": "2026-09-05T08:14:15Z",
+        "amount": 1450000.00,
+        "currency": "INR",
+        "merchant_name": "Binance Global Digital Asset Corp",
+        "merchant_category_code": "6051",
+        "channel": "IMPS",
+        "is_card_present": false,
+        "two_factor_authenticated": false,
+        "auth_method": "SMS_OTP"
+      },
+      "device_telemetry": {
+        "ip_address": "102.89.23.11",
+        "device_id": "DEV-LINUX-9831A",
+        "device_os": "Linux x86_64",
+        "browser": "HeadlessChrome/124.0",
+        "country": "NG",
+        "city": "Lagos",
+        "is_vpn_or_proxy": true,
+        "is_new_device": true,
+        "biometric_confidence_score": 0.12
+      },
+      "trigger_reason": "High-value outbound IMPS fund transfer attempted from foreign jurisdiction on newly registered headless browser following NetBanking password reset.",
+      "initial_risk_score": 88
+    },
+    "customer": {
+      "customer_id": "CUST-104921",
+      "full_name": "Rajesh Kumar Sharma",
+      "email": "rajesh.sharma@mumbaicapital.in",
+      "phone": "+91-98201-55192",
+      "account_number": "ACT-8841-9921",
+      "account_type": "Premier Savings",
+      "account_tenure_months": 36,
+      "kyc_status": "VERIFIED",
+      "risk_tier": "MEDIUM",
+      "registered_city": "Mumbai",
+      "registered_state": "MH",
+      "avg_monthly_volume_usd": 350000.00,
+      "active_cards": ["CARD-RUPAY-9921", "CARD-VISA-4100"]
+    },
+    "raw_history": [
+      {
+        "case_id": "HIST-2024-412",
+        "date": "2024-11-14",
+        "alert_type": "POS_ANOMALY",
+        "disposition": "FALSE_POSITIVE",
+        "loss_amount_usd": 0.0,
+        "summary": "Customer confirmed legitimate jewellery purchase while in Goa. Alert resolved.",
+        "system_origin": "CRA"
+      }
+    ],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-04T22:10:00Z",
+        "text": "Customer reported receiving suspicious smishing text impersonating Bank KYC Team asking to update PAN card. Advised not to share OTP.",
+        "sentiment": "DISTRESSED"
+      },
+      {
+        "source": "CRM_Notes",
+        "timestamp": "2026-09-05T01:45:10Z",
+        "text": "Self-service NetBanking password and SMS OTP reset completed during off-hours from unrecognized ASN.",
+        "sentiment": "NEUTRAL"
+      },
+      {
+        "source": "Pindrop",
+        "timestamp": "2026-09-05T08:10:00Z",
+        "text": "Inbound telephony IVR balance inquiry from VOIP carrier line. Acoustic audio mismatch detected against enrolled customer voiceprint.",
+        "sentiment": "SUSPICIOUS"
+      }
+    ]
+  },
+  {
+    "alert": {
+      "alert_id": "ALERT-CNP-4402",
+      "alert_type": "CNP_SPREE",
+      "timestamp": "2026-09-05T09:22:40Z",
+      "rule_name": "RULE_VELOCITY_RAPID_GIFT_CARDS",
+      "severity": "HIGH",
+      "customer_id": "CUST-381920",
+      "account_number": "ACT-3310-4402",
+      "trigger_transaction": {
+        "transaction_id": "TXN-8841-201",
+        "timestamp": "2026-09-05T09:22:10Z",
+        "amount": 185000.00,
+        "currency": "INR",
+        "merchant_name": "Flipkart & Apple Online Digital E-Gift Vouchers",
+        "merchant_category_code": "5732",
+        "channel": "ONLINE_CHECKOUT",
+        "is_card_present": false,
+        "two_factor_authenticated": false,
+        "auth_method": "NONE"
+      },
+      "device_telemetry": {
+        "ip_address": "198.54.133.8",
+        "device_id": "DEV-IOS-4821B",
+        "device_os": "iOS 18.2",
+        "browser": "Mobile Safari/18.2",
+        "country": "US",
+        "city": "Atlanta",
+        "is_vpn_or_proxy": true,
+        "is_new_device": true,
+        "biometric_confidence_score": 0.35
+      },
+      "trigger_reason": "Burst of 4 card-not-present gift voucher purchases within 5 minutes on commercial proxy following past card skimming alert.",
+      "initial_risk_score": 75
+    },
+    "customer": {
+      "customer_id": "CUST-381920",
+      "full_name": "Priya Venkataraman",
+      "email": "priya.venkat@techblr.in",
+      "phone": "+91-98450-91283",
+      "account_number": "ACT-3310-4402",
+      "account_type": "Corporate Salary Account",
+      "account_tenure_months": 14,
+      "kyc_status": "VERIFIED",
+      "risk_tier": "HIGH",
+      "registered_city": "Bengaluru",
+      "registered_state": "KA",
+      "avg_monthly_volume_usd": 180000.00,
+      "active_cards": ["CARD-VISA-7712"]
+    },
+    "raw_history": [
+      {
+        "case_id": "HIST-2025-901",
+        "date": "2025-08-19",
+        "alert_type": "CNP_CHARGEBACK",
+        "disposition": "CONFIRMED_FRAUD",
+        "loss_amount_usd": 45000.00,
+        "summary": "Debit card skimmed at retail fuel station in Electronic City; replacement card dispatched.",
+        "system_origin": "TFS"
+      }
+    ],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-03T14:15:00Z",
+        "text": "Cardholder reported misplacing physical card at transit metro station. Requested temporary pause, subsequently unpaused.",
+        "sentiment": "DISTRESSED"
+      },
+      {
+        "source": "CRM_Notes",
+        "timestamp": "2026-09-04T10:00:00Z",
+        "text": "Cardholder logged mobile banking query inquiring about unrecognized Rs 2 tokenization pre-auth charge.",
+        "sentiment": "SUSPICIOUS"
+      }
+    ]
+  },
+  {
+    "alert": {
+      "alert_id": "ALERT-FP-1093",
+      "alert_type": "TRAVEL_SUSPICION",
+      "timestamp": "2026-09-05T11:05:12Z",
+      "rule_name": "RULE_CROSS_BORDER_HIGH_VALUE",
+      "severity": "LOW",
+      "customer_id": "CUST-990142",
+      "account_number": "ACT-1102-1093",
+      "trigger_transaction": {
+        "transaction_id": "TXN-4412-882",
+        "timestamp": "2026-09-05T11:04:45Z",
+        "amount": 350000.00,
+        "currency": "INR",
+        "merchant_name": "Tanishq Flagship Jewellers (Connaught Place)",
+        "merchant_category_code": "5944",
+        "channel": "POS",
+        "is_card_present": true,
+        "two_factor_authenticated": true,
+        "auth_method": "BIOMETRIC"
+      },
+      "device_telemetry": {
+        "ip_address": "49.207.180.12",
+        "device_id": "DEV-IPHONE-VERIFIED-PRIMARY",
+        "device_os": "iOS 18.1",
+        "browser": "RuPay Chip & Biometric POS",
+        "country": "IN",
+        "city": "New Delhi",
+        "is_vpn_or_proxy": false,
+        "is_new_device": false,
+        "biometric_confidence_score": 0.99
+      },
+      "trigger_reason": "High-value festive luxury purchase triggered standard spending threshold alert.",
+      "initial_risk_score": 35
+    },
+    "customer": {
+      "customer_id": "CUST-990142",
+      "full_name": "Dr. Vikramaditya Singhania",
+      "email": "v.singhania@delhi-med.org",
+      "phone": "+91-98110-88334",
+      "account_number": "ACT-1102-1093",
+      "account_type": "Private Wealth Savings",
+      "account_tenure_months": 52,
+      "kyc_status": "VERIFIED",
+      "risk_tier": "LOW",
+      "registered_city": "New Delhi",
+      "registered_state": "DL",
+      "avg_monthly_volume_usd": 850000.00,
+      "active_cards": ["CARD-RUPAY-SELECT-0012"]
+    },
+    "raw_history": [
+      {
+        "case_id": "HIST-2024-118",
+        "date": "2024-04-10",
+        "alert_type": "FOREIGN_TRAVEL_ALERT",
+        "disposition": "FALSE_POSITIVE",
+        "loss_amount_usd": 0.0,
+        "summary": "Legitimate business travel to Tokyo, Japan. Verified and dismissed without card blocking.",
+        "system_origin": "CRA"
+      }
+    ],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-04T18:30:00Z",
+        "text": "Customer called Private Banking Relationship Manager informing about son's upcoming wedding shopping in New Delhi this weekend.",
+        "sentiment": "COOPERATIVE"
+      },
+      {
+        "source": "Pindrop",
+        "timestamp": "2026-09-04T18:31:00Z",
+        "text": "Voice biometrics match: 99.4% confidence score against customer acoustic voiceprint recorded in 2023.",
+        "sentiment": "COOPERATIVE"
+      }
+    ]
+  },
+  {
+    "alert": {
+      "alert_id": "ALERT-ML-6718",
+      "alert_type": "MULE_RAPID_MOVEMENT",
+      "timestamp": "2026-09-05T12:40:18Z",
+      "rule_name": "RULE_RAPID_DISPERSION_CRYPTO",
+      "severity": "CRITICAL",
+      "customer_id": "CUST-772183",
+      "account_number": "ACT-5509-6718",
+      "trigger_transaction": {
+        "transaction_id": "TXN-1120-774",
+        "timestamp": "2026-09-05T12:39:50Z",
+        "amount": 985000.00,
+        "currency": "INR",
+        "merchant_name": "CoinDCX / P2P Quick Layering Off-ramp",
+        "merchant_category_code": "6051",
+        "channel": "UPI",
+        "is_card_present": false,
+        "two_factor_authenticated": false,
+        "auth_method": "SMS_OTP"
+      },
+      "device_telemetry": {
+        "ip_address": "117.211.14.88",
+        "device_id": "DEV-ANDROID-UNKNOWN-88",
+        "device_os": "Android 14 (Rooted Nox Emulator)",
+        "browser": "Chrome Mobile 123",
+        "country": "IN",
+        "city": "Kolkata",
+        "is_vpn_or_proxy": true,
+        "is_new_device": true,
+        "biometric_confidence_score": 0.05
+      },
+      "trigger_reason": "Rapid outward fund dispersion to multiple unverified UPI VPAs minutes after high-value incoming RTGS credit.",
+      "initial_risk_score": 92
+    },
+    "customer": {
+      "customer_id": "CUST-772183",
+      "full_name": "Amit Verma",
+      "email": "amit.verma.fastp2p@mailhub.in",
+      "phone": "+91-98300-77291",
+      "account_number": "ACT-5509-6718",
+      "account_type": "Basic Savings Bank Deposit (BSBD)",
+      "account_tenure_months": 2,
+      "kyc_status": "PENDING_ENHANCED_DUE_DILIGENCE",
+      "risk_tier": "HIGH",
+      "registered_city": "Kolkata",
+      "registered_state": "WB",
+      "avg_monthly_volume_usd": 25000.00,
+      "active_cards": ["CARD-RUPAY-CLASSIC-9941"]
+    },
+    "raw_history": [],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-05T12:05:00Z",
+        "text": "Automated KYC anomaly: Account opened 45 days ago with minimum deposit; sudden 30x volume surge detected.",
+        "sentiment": "SUSPICIOUS"
+      },
+      {
+        "source": "CRM_Notes",
+        "timestamp": "2026-09-05T12:30:00Z",
+        "text": "Inbound RTGS of Rs 10,00,000 credited at 12:28Z. Immediate outward dispersion of Rs 9,85,000 via 6 UPI micro-transfers attempted within 11 minutes.",
+        "sentiment": "SUSPICIOUS"
+      }
+    ]
+  },
+  {
+    "alert": {
+      "alert_id": "ALERT-UPI-5104",
+      "alert_type": "UPI_SCAM",
+      "timestamp": "2026-09-05T13:15:30Z",
+      "rule_name": "RULE_REMOTE_DESKTOP_UPI_BURST",
+      "severity": "CRITICAL",
+      "customer_id": "CUST-441209",
+      "account_number": "ACT-6620-5104",
+      "trigger_transaction": {
+        "transaction_id": "TXN-UPI-99214",
+        "timestamp": "2026-09-05T13:14:55Z",
+        "amount": 85000.00,
+        "currency": "INR",
+        "merchant_name": "QuickPay Merchant QR Handle @paytm",
+        "merchant_category_code": "7299",
+        "channel": "UPI",
+        "is_card_present": false,
+        "two_factor_authenticated": false,
+        "auth_method": "NONE"
+      },
+      "device_telemetry": {
+        "ip_address": "157.34.221.90",
+        "device_id": "DEV-SAMSUNG-S23-REMOTE",
+        "device_os": "Android 14",
+        "browser": "GooglePay UPI App",
+        "country": "IN",
+        "city": "Jaipur",
+        "is_vpn_or_proxy": false,
+        "is_new_device": false,
+        "biometric_confidence_score": 0.22
+      },
+      "trigger_reason": "Screen-sharing remote control utility (AnyDesk) detected active on mobile device during burst of 3 rapid UPI QR debits totaling Rs 85,000.",
+      "initial_risk_score": 94
+    },
+    "customer": {
+      "customer_id": "CUST-441209",
+      "full_name": "Sunita Deshmukh",
+      "email": "sunita.deshmukh@puneuniv.ac.in",
+      "phone": "+91-98220-41094",
+      "account_number": "ACT-6620-5104",
+      "account_type": "Regular Savings",
+      "account_tenure_months": 48,
+      "kyc_status": "VERIFIED",
+      "risk_tier": "LOW",
+      "registered_city": "Pune",
+      "registered_state": "MH",
+      "avg_monthly_volume_usd": 65000.00,
+      "active_cards": ["CARD-VISA-PLATINUM-3312"]
+    },
+    "raw_history": [
+      {
+        "case_id": "HIST-2023-089",
+        "date": "2023-05-12",
+        "alert_type": "ATM_CASH_LIMIT",
+        "disposition": "FALSE_POSITIVE",
+        "loss_amount_usd": 0.0,
+        "summary": "Customer withdrew emergency cash for medical bill at Pune hospital. Verified legitimate.",
+        "system_origin": "CRA"
+      }
+    ],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-05T12:50:00Z",
+        "text": "Customer reported receiving deceptive SMS stating electricity connection would be cut tonight due to unpaid bill. Called toll-free number provided.",
+        "sentiment": "DISTRESSED"
+      },
+      {
+        "source": "Pindrop",
+        "timestamp": "2026-09-05T13:10:00Z",
+        "text": "Caller instructed customer to install 'QuickSupport / AnyDesk' remote screen app. Suspicious remote access tool actively broadcasting screen.",
+        "sentiment": "SUSPICIOUS"
+      }
+    ]
+  },
+  {
+    "alert": {
+      "alert_id": "ALERT-SIM-7731",
+      "alert_type": "SIM_SWAP",
+      "timestamp": "2026-09-05T14:02:11Z",
+      "rule_name": "RULE_SIM_SWAP_COOLING_BYPASS",
+      "severity": "CRITICAL",
+      "customer_id": "CUST-610992",
+      "account_number": "ACT-7711-7731",
+      "trigger_transaction": {
+        "transaction_id": "TXN-RTGS-55410",
+        "timestamp": "2026-09-05T14:01:40Z",
+        "amount": 480000.00,
+        "currency": "INR",
+        "merchant_name": "Om Enterprises Wholesale Current Account",
+        "merchant_category_code": "5045",
+        "channel": "RTGS",
+        "is_card_present": false,
+        "two_factor_authenticated": false,
+        "auth_method": "SMS_OTP"
+      },
+      "device_telemetry": {
+        "ip_address": "122.161.45.19",
+        "device_id": "DEV-ONEPLUS-NEW-IMEI",
+        "device_os": "Android 13",
+        "browser": "Mobile NetBanking Portal",
+        "country": "IN",
+        "city": "Noida",
+        "is_vpn_or_proxy": false,
+        "is_new_device": true,
+        "biometric_confidence_score": 0.15
+      },
+      "trigger_reason": "High-value RTGS transfer to newly added payee initiated 3 hours after duplicate e-SIM issuance in Noida circle (Customer registered circle: Chennai).",
+      "initial_risk_score": 96
+    },
+    "customer": {
+      "customer_id": "CUST-610992",
+      "full_name": "Arvind Swaminathan",
+      "email": "arvind.swaminathan@chennaicargo.in",
+      "phone": "+91-98400-33821",
+      "account_number": "ACT-7711-7731",
+      "account_type": "Current Business Account",
+      "account_tenure_months": 28,
+      "kyc_status": "VERIFIED",
+      "risk_tier": "MEDIUM",
+      "registered_city": "Chennai",
+      "registered_state": "TN",
+      "avg_monthly_volume_usd": 1200000.00,
+      "active_cards": ["CARD-MASTERCARD-BIZ-8821"]
+    },
+    "raw_history": [
+      {
+        "case_id": "HIST-2024-512",
+        "date": "2024-09-18",
+        "alert_type": "NEFT_LIMIT_INCREASE",
+        "disposition": "DISMISSED",
+        "loss_amount_usd": 0.0,
+        "summary": "Customer raised online NEFT daily limit with verified biometric video KYC.",
+        "system_origin": "CRA"
+      }
+    ],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-05T11:00:00Z",
+        "text": "Telecom carrier API callback: Duplicate e-SIM issued for phone number in Noida circle, triggering mandatory RBI 24-hour cooling window.",
+        "sentiment": "SUSPICIOUS"
+      },
+      {
+        "source": "CRM_Notes",
+        "timestamp": "2026-09-05T13:40:00Z",
+        "text": "New RTGS beneficiary added with zero cooling period delay; transfer of Rs 4,80,000 dispatched immediately.",
+        "sentiment": "SUSPICIOUS"
+      }
+    ]
+  },
+  {
+    "alert": {
+      "alert_id": "ALERT-AEPS-3209",
+      "alert_type": "AEPS_SPOOF",
+      "timestamp": "2026-09-05T15:10:44Z",
+      "rule_name": "RULE_AEPS_BIOMETRIC_SPOOF_CSP",
+      "severity": "CRITICAL",
+      "customer_id": "CUST-819034",
+      "account_number": "ACT-4412-3209",
+      "trigger_transaction": {
+        "transaction_id": "TXN-AEPS-77102",
+        "timestamp": "2026-09-05T15:10:10Z",
+        "amount": 30000.00,
+        "currency": "INR",
+        "merchant_name": "Purnia Rural Customer Service Point (CSP) Micro-ATM",
+        "merchant_category_code": "6011",
+        "channel": "AEPS",
+        "is_card_present": false,
+        "two_factor_authenticated": false,
+        "auth_method": "BIOMETRIC"
+      },
+      "device_telemetry": {
+        "ip_address": "103.24.188.4",
+        "device_id": "MICRO-ATM-CSP-BIHAR-99",
+        "device_os": "Embedded POS OS 4.2",
+        "browser": "Aadhaar Pay Terminal",
+        "country": "IN",
+        "city": "Purnia",
+        "is_vpn_or_proxy": false,
+        "is_new_device": true,
+        "biometric_confidence_score": 0.18
+      },
+      "trigger_reason": "Consecutive maximum-limit AEPS cash withdrawals at remote CSP kiosk with failed biometric liveness check (suspected silicone cloned fingerprint).",
+      "initial_risk_score": 97
+    },
+    "customer": {
+      "customer_id": "CUST-819034",
+      "full_name": "Ramesh Patil",
+      "email": "ramesh.patil.vidarbha@farmermail.in",
+      "phone": "+91-94220-77124",
+      "account_number": "ACT-4412-3209",
+      "account_type": "Kisan Credit / Rural Savings",
+      "account_tenure_months": 60,
+      "kyc_status": "VERIFIED",
+      "risk_tier": "LOW",
+      "registered_city": "Nagpur",
+      "registered_state": "MH",
+      "avg_monthly_volume_usd": 35000.00,
+      "active_cards": ["CARD-RUPAY-KISAN-1109"]
+    },
+    "raw_history": [],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-05T14:45:00Z",
+        "text": "UIDAI Biometric Liveness Anomaly: Static fingerprint pattern detected on optical scanner, characteristic of cloned silicone thumb impression.",
+        "sentiment": "SUSPICIOUS"
+      },
+      {
+        "source": "CRM_Notes",
+        "timestamp": "2026-09-05T15:05:00Z",
+        "text": "Three consecutive Rs 10,000 daily maximum cash withdrawal attempts executed within 4 minutes at rural kiosk 980 km away from customer's residence.",
+        "sentiment": "SUSPICIOUS"
+      }
+    ]
+  }
+]

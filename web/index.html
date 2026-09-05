@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PREVENT UI — Bank Fraud Investigation Assist</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- App Container -->
+  <div id="app" class="app-layout">
+    
+    <!-- Top Navigation Header -->
+    <header class="top-nav">
+      <div class="nav-brand">
+        <div class="brand-badge">PREVENT</div>
+        <div class="brand-text">
+          <span class="brand-title">Fraud Investigation Assist</span>
+          <span class="brand-subtitle">Multi-Agent Cognitive Orchestrator</span>
+        </div>
+      </div>
+
+      <div class="nav-system-status">
+        <span class="status-indicator live"></span>
+        <span class="status-text">Engine Online (4 Micro-Agents Active)</span>
+        <span class="sla-badge" id="sla-badge">SLA: &lt; 3.0s</span>
+      </div>
+
+      <div class="nav-controls">
+        <button id="btn-pull-next" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Pull Next Case
+        </button>
+        <button id="btn-simulate" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Simulate Alert
+        </button>
+        <button id="btn-reset" class="btn btn-ghost" title="Re-orchestrate all seed cases">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        </button>
+      </div>
+
+      <div class="analyst-profile">
+        <div class="analyst-avatar">SJ</div>
+        <div class="analyst-meta">
+          <span class="analyst-name">Sarah Jenkins</span>
+          <span class="analyst-role">OFD Senior Analyst</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-workspace">
+      
+      <!-- Left Sidebar: Case Queue -->
+      <aside class="case-queue-sidebar">
+        <div class="queue-header">
+          <h3>Active Alert Queue</h3>
+          <span id="queue-count" class="queue-counter">4</span>
+        </div>
+        <div class="queue-filter">
+          <button class="filter-chip active" data-filter="ALL">All</button>
+          <button class="filter-chip" data-filter="READY">Ready</button>
+          <button class="filter-chip" data-filter="RESOLVED">Resolved</button>
+        </div>
+        <div id="case-list-container" class="case-list">
+          <!-- Populated by app.js -->
+        </div>
+      </aside>
+
+      <!-- Center & Right: Case Detail View -->
+      <main class="case-detail-workspace" id="case-detail-container">
+        
+        <!-- Loading State -->
+        <div id="loading-spinner" class="loading-container hidden">
+          <div class="spinner"></div>
+          <p>Multi-Agent cognitive pipeline orchestrating analysis...</p>
+        </div>
+
+        <!-- Active Case View -->
+        <div id="case-view-content" class="case-view-content">
+          
+          <!-- Alert Banner & Overview -->
+          <section class="case-banner card">
+            <div class="banner-top">
+              <div class="banner-left">
+                <div class="badge-group">
+                  <span id="case-status-badge" class="badge badge-ready">READY FOR REVIEW</span>
+                  <span id="case-alert-type" class="badge badge-type">ATO</span>
+                  <span id="case-latency-badge" class="badge badge-perf">Latency: 24.8ms</span>
+                </div>
+                <h1 id="case-id-title">CASE-ATO-8921</h1>
+                <p id="case-trigger-reason" class="case-trigger-desc">
+                  High-value outbound wire attempted from foreign jurisdiction on newly registered headless browser.
+                </p>
+              </div>
+
+              <div class="banner-right">
+                <div class="risk-gauge-box">
+                  <div class="gauge-label">Cognitive Risk Score</div>
+                  <div class="gauge-value-wrap">
+                    <span id="risk-score-num" class="risk-score-number">98</span>
+                    <span class="risk-score-max">/100</span>
+                  </div>
+                  <div id="risk-severity-pill" class="risk-severity-pill critical">CRITICAL RISK</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metadata Strip -->
+            <div class="metadata-strip">
+              <div class="meta-item">
+                <span class="meta-label">Customer</span>
+                <span id="meta-customer-name" class="meta-value">Rajesh Kumar Sharma</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Account #</span>
+                <span id="meta-account-num" class="meta-value font-mono">ACT-8841-9921</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Transaction Amount</span>
+                <span id="meta-tx-amount" class="meta-value font-mono highlight">₹14,50,000.00 INR</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Payment Channel</span>
+                <span id="meta-channel" class="meta-value">IMPS (Binance Global)</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Origin Location</span>
+                <span id="meta-location" class="meta-value">Lagos, NG (Proxy/VPN)</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Home Circle</span>
+                <span id="meta-home" class="meta-value">Mumbai, MH</span>
+              </div>
+            </div>
+
+            <!-- Precursor Transaction Stream & Geo Velocity -->
+            <div class="txn-stream-section">
+              <div class="txn-stream-header">
+                <div class="stream-title">
+                  <span class="pulse-dot"></span>
+                  <span>Transaction Stream Velocity &amp; Channel Telemetry</span>
+                </div>
+                <div id="geo-route-pill" class="geo-route-pill">
+                  📍 Mumbai (Home) ➔ Lagos, NG (Origin) • 5,820 km
+                </div>
+              </div>
+              <div id="txn-sequence-container" class="txn-sequence-container">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Consolidated Summary (The AI Multi-Agent Core) -->
+          <section class="consolidated-summary-card card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                <h2>Consolidated Case Summary &amp; Next-Step Plan</h2>
+              </div>
+              <div class="header-actions-wrap">
+                <button type="button" id="btn-copy-dossier" class="btn-copy-dossier" title="Copy incident summary for 1930 Cyber Fraud Portal">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span>Copy 1930 Dossier</span>
+                </button>
+                <span id="summary-confidence" class="confidence-badge">Confidence: 96%</span>
+              </div>
+            </div>
+
+            <div class="summary-body">
+              <div class="summary-headline-box">
+                <strong id="summary-headline">High confidence account takeover in progress.</strong>
+                <p id="summary-assessment">Multiple critical policy violations detected.</p>
+              </div>
+
+              <div class="summary-grid">
+                <div class="findings-box">
+                  <h3>Key Investigation Findings</h3>
+                  <ul id="summary-findings-list" class="findings-list">
+                    <!-- Dynamic findings -->
+                  </ul>
+                </div>
+
+                <div class="action-plan-box">
+                  <h3>Recommended SOP Next Steps</h3>
+                  <ol id="summary-steps-list" class="steps-list">
+                    <!-- Dynamic steps -->
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Customer Call / Script Assistant -->
+              <div class="script-assistant-box">
+                <div class="script-header">
+                  <div class="script-title-group">
+                    <span class="script-icon">💬</span>
+                    <span class="script-title">Investigator Customer Phone Script (Natural English)</span>
+                  </div>
+                  <button type="button" id="btn-speak-script" class="btn-audio-speak" title="Listen to spoken audio call script">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    <span>Listen to Script</span>
+                  </button>
+                </div>
+                <p id="summary-script" class="script-text">
+                  "Good day Rajesh Kumar Sharma, this is your bank's fraud containment desk..."
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Red Flags vs Green Flags Split View -->
+          <section class="flags-split-section">
+            
+            <!-- Red Flags Panel -->
+            <div class="card flags-card red-card">
+              <div class="card-header">
+                <div class="flag-title-wrap">
+                  <span class="flag-icon red-flag-dot"></span>
+                  <h3>Policy Violations &amp; Red Flags (<span id="red-flags-count">0</span>)</h3>
+                </div>
+                <span class="source-tag">OFD / ATO Rules Engine</span>
+              </div>
+              <div id="red-flags-container" class="flags-list">
+                <!-- Dynamic Red Flags -->
+              </div>
+            </div>
+
+            <!-- Green Flags Panel -->
+            <div class="card flags-card green-card">
+              <div class="card-header">
+                <div class="flag-title-wrap">
+                  <span class="flag-icon green-flag-dot"></span>
+                  <h3>Mitigating Factors &amp; Green Flags (<span id="green-flags-count">0</span>)</h3>
+                </div>
+                <span class="source-tag">Exemption &amp; Biometrics</span>
+              </div>
+              <div id="green-flags-container" class="flags-list">
+                <!-- Dynamic Green Flags -->
+              </div>
+            </div>
+
+          </section>
+
+          <!-- Agent Deep-Dive Tabs -->
+          <section class="agent-intelligence-card card">
+            <div class="tab-nav">
+              <button class="tab-btn active" data-tab="tab-profiling">1. Cust Profiling Agent</button>
+              <button class="tab-btn" data-tab="tab-history">2. Case History Agent</button>
+              <button class="tab-btn" data-tab="tab-notes">3. Notes Summarizer Agent</button>
+              <button class="tab-btn" data-tab="tab-policy">4. Policy Decision Agent</button>
+              <button class="tab-btn" data-tab="tab-audit">5. Audit Trail &amp; Timeline</button>
+              <button class="tab-btn" data-tab="tab-chat">6. Policy Chat (Gemini 2.5 Pro)</button>
+            </div>
+
+            <div class="tab-content">
+              <!-- Profiling Tab -->
+              <div id="tab-profiling" class="tab-pane active">
+                <div class="tab-pane-header">
+                  <h4>Customer Telemetry &amp; System Integration</h4>
+                  <div class="systems-chips" id="profiling-systems"></div>
+                </div>
+                <div class="profiling-metrics-grid">
+                  <div class="metric-card">
+                    <span class="label">Spend Deviation</span>
+                    <span id="prof-spend-dev" class="val">4.5x</span>
+                    <span class="sub">vs 90-day norm</span>
+                  </div>
+                  <div class="metric-card">
+                    <span class="label">Geo Distance Hop</span>
+                    <span id="prof-geo-dist" class="val">5,820 mi</span>
+                    <span class="sub">Origin to home</span>
+                  </div>
+                  <div class="metric-card">
+                    <span class="label">Device Trust Score</span>
+                    <span id="prof-device-trust" class="val">15%</span>
+                    <span class="sub">Hardware profile</span>
+                  </div>
+                  <div class="metric-card">
+                    <span class="label">Account Tenure</span>
+                    <span id="prof-tenure" class="val">36 mos</span>
+                    <span class="sub">KYC: Verified</span>
+                  </div>
+                </div>
+                <p id="prof-summary-text" class="tab-detail-text"></p>
+              </div>
+
+              <!-- History Tab -->
+              <div id="tab-history" class="tab-pane">
+                <div class="tab-pane-header">
+                  <h4>Historical Dispute &amp; Case Archive</h4>
+                  <div class="systems-chips" id="history-systems"></div>
+                </div>
+                <div class="history-summary-box">
+                  <p id="history-summary-text"></p>
+                </div>
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Case ID</th>
+                        <th>Date</th>
+                        <th>Alert Type</th>
+                        <th>Disposition</th>
+                        <th>Disputed Amount</th>
+                        <th>Summary</th>
+                      </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                      <!-- Dynamic rows -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Notes Tab -->
+              <div id="tab-notes" class="tab-pane">
+                <div class="tab-pane-header">
+                  <h4>Multi-Source Notes &amp; Pindrop Voice Telephony</h4>
+                  <div class="systems-chips" id="notes-systems"></div>
+                </div>
+                <div id="notes-sentiment-badge" class="sentiment-badge">Sentiment: Neutral</div>
+                <div class="notes-bullet-box">
+                  <ul id="notes-bullets-list" class="notes-bullets">
+                    <!-- Dynamic notes -->
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Policy Tab -->
+              <div id="tab-policy" class="tab-pane">
+                <div class="tab-pane-header">
+                  <h4>SOP Evaluation Details</h4>
+                  <span id="policy-pack-name" class="policy-badge">OFD_GLOBAL_SOP_v2.4</span>
+                </div>
+                <div class="policy-details-box">
+                  <div class="policy-meta-row">
+                    <strong>Primary Recommendation:</strong>
+                    <span id="policy-rec-action" class="rec-highlight">BLOCK_ACCOUNT</span>
+                  </div>
+                  <div class="policy-meta-row">
+                    <strong>Urgency SLA:</strong>
+                    <span id="policy-urgency">IMMEDIATE (&lt; 15 mins)</span>
+                  </div>
+                  <div class="policy-meta-row">
+                    <strong>SOP Citation:</strong>
+                    <span id="policy-sop-ref">SOP-SEC-802: Account Takeover Emergency Containment</span>
+                  </div>
+                  <div class="policy-meta-row">
+                    <strong>Alternative Options:</strong>
+                    <span id="policy-alternatives">RESTRICT_CARD, ESCALATE_TIER2</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Audit Trail Tab -->
+              <div id="tab-audit" class="tab-pane">
+                <div class="tab-pane-header">
+                  <h4>Immutable Investigation Audit Trail</h4>
+                  <span class="audit-badge">Cryptographically Traceable</span>
+                </div>
+                <div id="audit-timeline" class="timeline-container">
+                  <!-- Dynamic timeline items -->
+                </div>
+              </div>
+
+              <!-- Policy Chat Tab (Gemini 2.5 Pro) -->
+              <div id="tab-chat" class="tab-pane">
+                <div class="tab-pane-header">
+                  <div class="chat-header-info">
+                    <h4>OFD Policy Assistant</h4>
+                    <span class="policy-badge">Stateful &bull; Tachyon ADK &bull; PII Masked</span>
+                  </div>
+                  <div class="chat-model-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="font-mono text-xs">gemini-2.5-pro</span>
+                  </div>
+                </div>
+                <div class="chat-wrapper">
+                  <div class="chat-quick-prompts">
+                    <span class="quick-label">Quick SOP Queries:</span>
+                    <button type="button" class="quick-chip" data-prompt="What SOP should I follow for ATO above $10k?">SOP for ATO &gt; $10k?</button>
+                    <button type="button" class="quick-chip" data-prompt="Can I dismiss if biometrics matched but IP is proxy?">Biometrics match vs proxy?</button>
+                    <button type="button" class="quick-chip" data-prompt="What are the required customer contact verification steps?">Customer verification steps?</button>
+                    <button type="button" class="quick-chip" data-prompt="Summarize the red vs green flags for this case.">Summarize red vs green flags</button>
+                  </div>
+                  <div id="chat-messages-container" class="chat-messages-container">
+                    <!-- Chat bubbles loaded dynamically -->
+                  </div>
+                  <form id="chat-input-form" class="chat-input-form">
+                    <input type="text" id="chat-user-input" class="chat-input" placeholder="Ask policy questions about this case (e.g. 'Can I restrict card instead of freezing?')..." autocomplete="off" />
+                    <button type="submit" id="chat-send-btn" class="btn btn-primary chat-send-btn">
+                      <span>Send</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Analyst Action Decision Bar (Sticky Bottom) -->
+          <section class="analyst-action-bar card">
+            <div class="action-bar-left">
+              <span class="action-prompt">Analyst Decision:</span>
+              <span class="action-sub">Select verified action to execute containment SOP</span>
+            </div>
+            <div class="action-buttons-group">
+              <button class="btn btn-action btn-danger" data-action="BLOCK_ACCOUNT">
+                🚫 Freeze Account
+              </button>
+              <button class="btn btn-action btn-warning" data-action="RESTRICT_CARD">
+                💳 Restrict Card
+              </button>
+              <button class="btn btn-action btn-info" data-action="CONTACT_CUSTOMER">
+                📞 Contact Customer
+              </button>
+              <button class="btn btn-action btn-purple" data-action="ESCALATE_TIER2">
+                ⚡ Escalate Tier 2
+              </button>
+              <button class="btn btn-action btn-success" data-action="DISMISS_FALSE_POSITIVE">
+                ✓ Dismiss (False Positive)
+              </button>
+            </div>
+          </section>
+
+        </div>
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- Action Confirmation Modal -->
+  <div id="action-modal" class="modal-overlay hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-action-title">Confirm Action</h3>
+        <button id="btn-modal-close" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="modal-action-desc">Are you sure you want to execute this action?</p>
+        <div class="form-group">
+          <label for="modal-notes">Investigator Case Notes (Required for Audit Trail):</label>
+          <textarea id="modal-notes" rows="3" placeholder="Enter findings, verification notes, or SOP justification..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-modal-cancel" class="btn btn-secondary">Cancel</button>
+        <button id="btn-modal-confirm" class="btn btn-primary">Confirm &amp; Execute Action</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Simulation Modal -->
+  <div id="sim-modal" class="modal-overlay hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Simulate New Fraud Ingestion</h3>
+        <button id="btn-sim-close" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Select a scenario to simulate publishing a real-time risk alert to the Case Orchestrator Agent:</p>
+        <div class="sim-scenario-cards">
+          <div class="sim-card" data-scenario="0">
+            <div class="sim-card-header">
+              <span class="sim-badge critical">CRITICAL</span>
+              <strong>ATO-8921: Account Takeover (IMPS ₹14,50,000)</strong>
+            </div>
+            <p>Rajesh Sharma (Mumbai): High-value IMPS transfer to crypto exchange from Lagos IP, password reset 12h prior.</p>
+          </div>
+
+          <div class="sim-card" data-scenario="1">
+            <div class="sim-card-header">
+              <span class="sim-badge high">HIGH</span>
+              <strong>CNP-4402: Card-Not-Present Spree (₹1,85,000)</strong>
+            </div>
+            <p>Priya Venkataraman (Bengaluru): 4 rapid digital gift voucher checkouts on proxy VPN, past card skim report.</p>
+          </div>
+
+          <div class="sim-card" data-scenario="2">
+            <div class="sim-card-header">
+              <span class="sim-badge low">LOW</span>
+              <strong>FP-1093: Festive Exemption (₹3,50,000 Tanishq)</strong>
+            </div>
+            <p>Dr. V. Singhania (Delhi): High-value jewellery purchase with Aadhaar Face biometrics &amp; RM wedding notice.</p>
+          </div>
+
+          <div class="sim-card" data-scenario="3">
+            <div class="sim-card-header">
+              <span class="sim-badge critical">CRITICAL</span>
+              <strong>ML-6718: Mule Account Layering (UPI ₹9,85,000)</strong>
+            </div>
+            <p>Amit Verma (Kolkata): 45-day-old account, immediate outward UPI dispersion via rooted Android emulator.</p>
+          </div>
+
+          <div class="sim-card" data-scenario="4">
+            <div class="sim-card-header">
+              <span class="sim-badge critical">CRITICAL</span>
+              <strong>UPI-5104: Screen-Sharing APK Scam (UPI ₹85,000)</strong>
+            </div>
+            <p>Sunita Deshmukh (Pune): AnyDesk remote control detected broadcasting screen during 3 rapid QR debits.</p>
+          </div>
+
+          <div class="sim-card" data-scenario="5">
+            <div class="sim-card-header">
+              <span class="sim-badge critical">CRITICAL</span>
+              <strong>SIM-7731: SIM-Swap Fraud (RTGS ₹4,80,000)</strong>
+            </div>
+            <p>Arvind Swaminathan (Chennai): Duplicate e-SIM issued in Noida circle 3h prior to RTGS payee dispatch.</p>
+          </div>
+
+          <div class="sim-card" data-scenario="6">
+            <div class="sim-card-header">
+              <span class="sim-badge critical">CRITICAL</span>
+              <strong>AEPS-3209: Aadhaar Biometric Spoofing (₹30,000)</strong>
+            </div>
+            <p>Ramesh Patil (Nagpur): Cloned silicone fingerprint detected at remote rural Micro-ATM CSP kiosk in Bihar.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-sim-cancel" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

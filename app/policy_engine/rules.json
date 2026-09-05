@@ -1,0 +1,139 @@
+{
+  "policy_name": "OFD_GLOBAL_SOP_v2.4",
+  "version": "2.4.1",
+  "description": "Enterprise Online Fraud Detection and Account Takeover Standard Operating Procedure",
+  "rules": [
+    {
+      "id": "ATO-SOP-101",
+      "source": "ATO",
+      "category": "ACCOUNT_TAKEOVER",
+      "name": "High-Risk Foreign IP with Unrecognized Device",
+      "severity": "CRITICAL",
+      "flag_type": "RED",
+      "condition": "is_foreign_ip and is_new_device",
+      "description": "Session originated from high-risk foreign jurisdiction on previously unseen device hardware signature.",
+      "score_impact": 40
+    },
+    {
+      "id": "OFD-RULE-204",
+      "source": "OFD",
+      "category": "TRANSACTION_ANOMALY",
+      "name": "Severe Spend Deviation (>3.0x Average)",
+      "severity": "HIGH",
+      "flag_type": "RED",
+      "condition": "spend_deviation_factor >= 3.0",
+      "description": "Transaction amount significantly exceeds historic 90-day baseline spending profile.",
+      "score_impact": 25
+    },
+    {
+      "id": "DTFR-RULE-305",
+      "source": "DTFR",
+      "category": "TELEMETRY",
+      "name": "Anonymizing Proxy / Tor Exit / VPN Telemetry",
+      "severity": "HIGH",
+      "flag_type": "RED",
+      "condition": "is_vpn_detected or device_trust_score < 0.3",
+      "description": "Network telemetry indicates masked identity or low-trust emulator/proxy environment.",
+      "score_impact": 20
+    },
+    {
+      "id": "RCDV-RULE-401",
+      "source": "RCDV",
+      "category": "MULE_ACTIVITY",
+      "name": "Rapid Cash Dispersion on New Account",
+      "severity": "CRITICAL",
+      "flag_type": "RED",
+      "condition": "tenure_months < 6 and velocity_24h_count >= 3",
+      "description": "Young account exhibiting rapid layering/dispersion velocity indicative of money mule activity.",
+      "score_impact": 35
+    },
+    {
+      "id": "EEDE-RULE-502",
+      "source": "EEDE",
+      "category": "WIRE_EXCEPTION",
+      "name": "Unverified Beneficiary Outbound Transfer",
+      "severity": "HIGH",
+      "flag_type": "RED",
+      "condition": "channel in ['WIRE', 'IMPS', 'RTGS'] and not two_factor_authenticated",
+      "description": "High value IMPS/RTGS/Wire transfer attempted without stepped-up hardware or biometric authentication.",
+      "score_impact": 30
+    },
+    {
+      "id": "ATO-NOTE-603",
+      "source": "ATO",
+      "category": "CREDENTIAL_COMPROMISE",
+      "name": "Recent Credential Reset Preceding Outbound Activity",
+      "severity": "HIGH",
+      "flag_type": "RED",
+      "condition": "has_recent_password_reset",
+      "description": "Investigator/system notes confirm password/MFA update within 48 hours prior to transaction.",
+      "score_impact": 25
+    },
+    {
+      "id": "UPI-RULE-503",
+      "source": "OFD",
+      "category": "UPI_ANOMALY",
+      "name": "High-Velocity UPI Transfer via New or Emulated Device",
+      "severity": "CRITICAL",
+      "flag_type": "RED",
+      "condition": "channel == 'UPI' and (is_new_device or is_vpn_detected)",
+      "description": "UPI payment initiated from unrecognized mobile device identifier or proxy environment.",
+      "score_impact": 35
+    },
+    {
+      "id": "SIM-SWAP-701",
+      "source": "DTFR",
+      "category": "TELECOM_RISK",
+      "name": "SIM Reissuance within 24-Hour Cooling Window",
+      "severity": "CRITICAL",
+      "flag_type": "RED",
+      "condition": "is_new_device and channel in ['IMPS', 'RTGS', 'AEPS']",
+      "description": "High-value fund dispatch on newly activated device within mandatory 24-hour telecom cooling period.",
+      "score_impact": 40
+    },
+    {
+      "id": "GREEN-MIT-01",
+      "source": "FPF",
+      "category": "MITIGATION",
+      "name": "Hardware-Backed Biometric Authentication Verified",
+      "severity": "INFO",
+      "flag_type": "GREEN",
+      "condition": "biometric_confidence >= 0.9 and auth_method == 'BIOMETRIC'",
+      "description": "Transaction was verified with strong biometric hardware assertion (FaceID / Fingerprint).",
+      "score_impact": -30
+    },
+    {
+      "id": "GREEN-MIT-02",
+      "source": "OFD",
+      "category": "MITIGATION",
+      "name": "Active Verified Travel Notice on Record",
+      "severity": "INFO",
+      "flag_type": "GREEN",
+      "condition": "has_matching_travel_notice",
+      "description": "Customer proactively notified customer service of international travel to the destination country.",
+      "score_impact": -35
+    },
+    {
+      "id": "GREEN-MIT-03",
+      "source": "OFD",
+      "category": "MITIGATION",
+      "name": "Long Established Tenure with Zero Fraud Dispositions",
+      "severity": "INFO",
+      "flag_type": "GREEN",
+      "condition": "tenure_months >= 24 and confirmed_fraud_count == 0",
+      "description": "Established account relationship with over 2 years of clean history and zero confirmed fraud incidents.",
+      "score_impact": -15
+    },
+    {
+      "id": "GREEN-MIT-04",
+      "source": "PCFD",
+      "category": "MITIGATION",
+      "name": "Recent Customer Service Confirmation Call",
+      "severity": "INFO",
+      "flag_type": "GREEN",
+      "condition": "has_recent_support_confirmation",
+      "description": "Customer voice-verified the pending transaction via inbound customer care call with clean voice biometric.",
+      "score_impact": -25
+    }
+  ]
+}
