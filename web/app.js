@@ -540,8 +540,8 @@ async function confirmAndExecuteAction() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         action_type: pendingActionType,
-        analyst_id: "OFD-ANALYST-409",
-        analyst_name: "Sarah Jenkins",
+        analyst_id: "OFD-LEAD-409",
+        analyst_name: "Hussain Basha Shaik",
         investigator_notes: notes,
       }),
     });
@@ -982,7 +982,7 @@ function renderGeoThreatMap(c) {
 // ==========================================================================
 const LOCALIZED_SCRIPTS = {
   "CASE-ATO-8921": {
-    en: "Good day Rajesh Kumar Sharma, this is Sarah Jenkins from your bank's Fraud Prevention Desk. We have temporarily suspended an outbound IMPS transfer of ₹14,50,000 to Binance Global initiated from an IP in Lagos, Nigeria. Did you authorize this transaction or reset your password in the last 24 hours?",
+    en: "Good day Rajesh Kumar Sharma, this is Hussain Basha Shaik from your bank's Fraud Prevention Desk. We have temporarily suspended an outbound IMPS transfer of ₹14,50,000 to Binance Global initiated from an IP in Lagos, Nigeria. Did you authorize this transaction or reset your password in the last 24 hours?",
     hi: "नमस्ते राजेश कुमार शर्मा जी, मैं आपके बैंक के धोखाधड़ी नियंत्रण विभाग से बोल रही हूँ। आपके खाते से लागोस (नाइजीरिया) से ₹14,50,000 का आईएमपीएस (IMPS) ट्रांसफर रोकने के लिए हमने खाते को अस्थायी रूप से सुरक्षित किया है। क्या यह लेन-देन आपने किया था अथवा हाल ही में पासवर्ड बदला था?",
     mr: "नमस्कार राजेश कुमार शर्मा जी, मी आपल्या बँकेच्या फसवणूक नियंत्रण विभागातून बोलत आहे. आपल्या खात्यावरून लागोस, नायजेरिया येथून झालेला ₹१४,५०,००० चा आयएमपीएस व्यवहार आम्ही तात्पुरता थांबवला आहे. हा व्यवहार आपण स्वतः केला होता का?"
   },
@@ -1128,7 +1128,7 @@ function setupNcrpModal() {
       const ackVal = document.getElementById("ncrp-ack-id") ? document.getElementById("ncrp-ack-id").value : "NCRP-2026";
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
         ncrp_docket_id: ackVal,
-        reporting_officer: "Sarah Jenkins (OFD-ANALYST-409)",
+        reporting_officer: "Hussain Basha Shaik (OFD-LEAD-409)",
         case_id: activeCase.case_id,
         victim_name: activeCase.customer_profile.full_name,
         victim_account: activeCase.customer_profile.account_number,
@@ -1240,7 +1240,7 @@ function setupDossierExport() {
       <div class="dossier-section-title">4. Statutory Verification Sign-Off</div>
       <div style="display:flex; justify-content:space-between; margin-top:16px; font-size:11px; color:#475569;">
         <div>
-          <p>Investigating Analyst: <strong>Sarah Jenkins (OFD-409)</strong></p>
+          <p>Investigating Analyst: <strong>Hussain Basha Shaik (OFD-LEAD-409)</strong></p>
           <p>Digital Digest: <code style="font-family:monospace; font-size:10px;">SHA256:7f83b165...9069</code></p>
         </div>
         <div style="text-align:right;">

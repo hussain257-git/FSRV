@@ -12,8 +12,8 @@ class AnalystActionType(str, Enum):
 
 class AnalystActionRequest(BaseModel):
     action_type: AnalystActionType
-    analyst_id: str = "OFD-ANALYST-409"
-    analyst_name: str = "Sarah Jenkins"
+    analyst_id: str = "OFD-LEAD-409"
+    analyst_name: str = "Hussain Basha Shaik"
     investigator_notes: str
     override_reason: Optional[str] = None
 

@@ -63,14 +63,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 20px;
   flex-shrink: 0;
+  gap: 12px;
 }
 
 .nav-brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
+  min-width: max-content;
 }
 
 .brand-badge {
@@ -81,30 +84,45 @@ body {
   letter-spacing: 1px;
   padding: 4px 10px;
   border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .brand-title {
   display: block;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
+  line-height: 1.2;
   letter-spacing: -0.3px;
+  white-space: nowrap;
 }
 
 .brand-subtitle {
   display: block;
   font-size: 11px;
+  line-height: 1.2;
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .nav-system-status {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background-color: rgba(15, 23, 42, 0.6);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 20px;
   border: 1px solid var(--border-subtle);
   font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .status-indicator.live {
@@ -114,6 +132,7 @@ body {
   background-color: var(--accent-green);
   box-shadow: 0 0 10px var(--accent-green);
   animation: pulse 2s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes pulse {
@@ -129,20 +148,24 @@ body {
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
+  flex-shrink: 0;
 }
 
 .nav-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .analyst-profile {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-left: 16px;
+  padding-left: 14px;
   border-left: 1px solid var(--border-color);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .analyst-avatar {
@@ -359,8 +382,9 @@ body {
   background-color: rgba(15, 23, 42, 0.7);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-  padding: 12px 20px;
+  padding: 12px 18px 8px;
   text-align: center;
+  min-width: 180px;
 }
 
 .gauge-label {
@@ -368,7 +392,7 @@ body {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .gauge-value-wrap {
@@ -379,23 +403,24 @@ body {
 }
 
 .risk-score-number {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 900;
   line-height: 1;
 }
 
 .risk-score-max {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--text-dim);
 }
 
 .risk-severity-pill {
-  margin-top: 6px;
-  font-size: 11px;
+  margin-top: 4px;
+  font-size: 10px;
   font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 10px;
+  padding: 2px 10px;
+  border-radius: 9999px;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .risk-severity-pill.critical { background-color: var(--accent-red); color: #fff; }
@@ -1696,8 +1721,8 @@ body[data-theme="light"] .summary-headline-box {
    ========================================================================== */
 .speedometer-container {
   position: relative;
-  width: 160px;
-  height: 95px;
+  width: 170px;
+  height: 110px;
   margin: 0 auto;
 }
 
@@ -1713,12 +1738,13 @@ body[data-theme="light"] .summary-headline-box {
 
 .gauge-center-content {
   position: absolute;
-  top: 38px;
+  top: 26px;
   left: 0;
   right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  pointer-events: none;
 }
 
 /* ==========================================================================
