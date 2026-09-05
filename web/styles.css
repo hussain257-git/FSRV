@@ -493,6 +493,134 @@ body {
   margin-bottom: 16px;
 }
 
+.summary-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1080px) {
+  .summary-grid-3col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.narrative-card {
+  background-color: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.narrative-card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.narrative-card.beginning-card {
+  border-top: 3px solid #38bdf8;
+}
+
+.narrative-card.events-card {
+  border-top: 3px solid #f59e0b;
+}
+
+.narrative-card.steps-card {
+  border-top: 3px solid #10b981;
+}
+
+.narrative-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.narrative-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.narrative-icon {
+  font-size: 16px;
+}
+
+.narrative-card-header h3 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.narrative-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.beginning-badge {
+  background: rgba(56, 189, 248, 0.15);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.events-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.steps-badge {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.narrative-list, .narrative-steps-list {
+  padding-left: 16px;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.narrative-list li, .narrative-steps-list li {
+  margin-bottom: 8px;
+  color: #cbd5e1;
+}
+
+.narrative-steps-list li {
+  font-weight: 500;
+}
+
+body[data-theme="light"] .narrative-card {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+}
+
+body[data-theme="light"] .narrative-card-header h3 {
+  color: #0f172a;
+}
+
+body[data-theme="light"] .narrative-list li,
+body[data-theme="light"] .narrative-steps-list li {
+  color: #334155;
+}
+
 .findings-box h3, .action-plan-box h3 {
   font-size: 13px;
   font-weight: 600;

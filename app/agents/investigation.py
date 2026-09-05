@@ -158,6 +158,30 @@ class InvestigationAgent:
             f"Notes Synthesis: {notes.bullet_points[0] if notes.bullet_points else 'No prior negative notes on file.'}"
         ]
 
+        # 1. Case Beginning (Genesis & Baseline)
+        case_beginning = [
+            f"Customer Profile: {customer.full_name} ({customer.account_type}, tenure {customer.account_tenure_months} mos) registered in {customer.registered_city}, {customer.registered_state}.",
+            f"Account Baseline: Normal turnover ₹{customer.avg_monthly_volume_usd:,.2f}/mo with {len(customer.active_cards)} active banking instrument(s).",
+            f"Alert Inception: Rule '{alert.rule_name}' triggered at {alert.timestamp[:19].replace('T', ' ')} UTC.",
+            f"Transaction Under Review: ₹{alert.trigger_transaction.amount:,.2f} via {alert.trigger_transaction.channel} to {alert.trigger_transaction.merchant_name}."
+        ]
+
+        # 2. Key Events Happened (Forensic Attack Timeline)
+        key_events = []
+        if notes.bullet_points:
+            for bp in notes.bullet_points:
+                key_events.append(f"Forensic Intelligence: {bp}")
+        key_events.append(
+            f"Session Telemetry: Request from {alert.device_telemetry.city}, {alert.device_telemetry.country} (IP: {alert.device_telemetry.ip_address}) — {profiling.geolocation_distance_miles:,.0f} km displacement."
+        )
+        key_events.append(
+            f"Device Integrity: {alert.device_telemetry.device_os} / {alert.device_telemetry.browser} (Biometric: {alert.device_telemetry.biometric_confidence_score:.2f}, Proxy/VPN: {alert.device_telemetry.is_vpn_or_proxy})."
+        )
+        if profiling.spend_deviation_factor > 1.2:
+            key_events.append(
+                f"Velocity Spike: Spend velocity breach of {profiling.spend_deviation_factor:.1f}x normal baseline threshold."
+            )
+
         # Suggested investigator call script with natural, conversational English
         curr_symbol = "₹"
         if policy.risk_level in ["CRITICAL", "HIGH"]:
@@ -175,12 +199,12 @@ class InvestigationAgent:
                 f"Your biometric verification and travel details have been verified successfully. No action is needed on your part. Thank you for banking with us.'"
             )
 
-        # Actionable next steps
+        # 3. Actionable Next Steps Plan
         next_steps = [
-            f"1. Execute Primary Action: {policy.recommended_action} ({policy.action_urgency}).",
-            f"2. Reference Policy Guideline: {policy.sop_reference}.",
-            f"3. Review Red Flags ({len(policy.red_flags)}) vs Mitigating Green Flags ({len(policy.green_flags)}) in PREVENT UI.",
-            f"4. Record investigator decision and closure notes for audit trail."
+            f"[IMMEDIATE ACTION] Execute {policy.recommended_action} ({policy.action_urgency}) under SOP {policy.sop_reference}.",
+            f"[CYBER PORTAL SYNC] Trigger 1-Click submission to 1930 / NCRP Portal for inter-bank beneficiary lien hold.",
+            f"[CUSTOMER OUTREACH] Contact {customer.full_name} via verified telephony script (English / Hindi / Marathi).",
+            f"[REGULATORY AUDIT] Document tamper-evident SHA-256 audit entry and RBI zero-liability compliance dispute reference."
         ]
 
         return ConsolidatedSummary(
@@ -188,6 +212,8 @@ class InvestigationAgent:
             risk_assessment=policy.decision_rationale,
             confidence_score=confidence,
             key_findings=findings,
+            case_beginning=case_beginning,
+            key_events_happened=key_events,
             suggested_investigator_script=script,
             next_step_plan=next_steps
         )

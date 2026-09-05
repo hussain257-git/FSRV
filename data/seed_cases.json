@@ -516,5 +516,72 @@
         "sentiment": "SUSPICIOUS"
       }
     ]
+  },
+  {
+    "alert": {
+      "alert_id": "ALERT-ONL-6610",
+      "alert_type": "ONLINE_GATEWAY_FRAUD",
+      "timestamp": "2026-09-05T15:30:00Z",
+      "rule_name": "RULE_ONLINE_PHISHING_GATEWAY_INTERCEPT",
+      "severity": "CRITICAL",
+      "customer_id": "CUST-992104",
+      "account_number": "ACT-4421-6610",
+      "trigger_transaction": {
+        "transaction_id": "TXN-8819-002",
+        "timestamp": "2026-09-05T15:29:40Z",
+        "amount": 275000.00,
+        "currency": "INR",
+        "merchant_name": "UK Crypto Exchange & E-Store Corp",
+        "merchant_category_code": "6051",
+        "channel": "ONLINE_PAYMENT_GATEWAY",
+        "is_card_present": false,
+        "two_factor_authenticated": false,
+        "auth_method": "OTP_PHISHED"
+      },
+      "device_telemetry": {
+        "ip_address": "185.220.101.5",
+        "device_id": "DEV-TOR-EXIT-991",
+        "device_os": "Windows 11 / Tor Browser",
+        "browser": "Firefox/115.0",
+        "country": "GB",
+        "city": "Manchester",
+        "is_vpn_or_proxy": true,
+        "is_new_device": true,
+        "biometric_confidence_score": 0.18
+      },
+      "trigger_reason": "High-value international online checkout executed on Tor exit node immediately following credential harvest on cloned electricity bill payment gateway.",
+      "initial_risk_score": 92
+    },
+    "customer": {
+      "customer_id": "CUST-992104",
+      "full_name": "Ananya Deshpande",
+      "email": "ananya.deshpande@puneit.in",
+      "phone": "+91-98220-44910",
+      "account_number": "ACT-4421-6610",
+      "account_type": "Classic Savings Account",
+      "account_tenure_months": 28,
+      "kyc_status": "VERIFIED",
+      "risk_tier": "MEDIUM",
+      "registered_city": "Pune",
+      "registered_state": "MH",
+      "avg_monthly_volume_usd": 65000.00,
+      "active_cards": ["CARD-RUPAY-PLATINUM-6610"]
+    },
+    "raw_history": [],
+    "raw_notes": [
+      {
+        "source": "PCFD",
+        "timestamp": "2026-09-05T15:22:00Z",
+        "text": "Phishing Gateway Alert: Customer navigated to deceptive lookalike URL 'msedcl-billpay-fast.com' mimicking official utility payment portal.",
+        "sentiment": "DISTRESSED"
+      },
+      {
+        "source": "CRM_Notes",
+        "timestamp": "2026-09-05T15:27:10Z",
+        "text": "Card PAN, expiry, CVV and authentication token submitted into phishing form; 2 minutes later, ₹2,75,000 foreign checkout attempted from Manchester IP.",
+        "sentiment": "SUSPICIOUS"
+      }
+    ]
   }
 ]
+

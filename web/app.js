@@ -344,15 +344,33 @@ function selectCase(c) {
   renderTransactionStream(c);
   renderGeoThreatMap(c);
 
-  // Consolidated Summary
+  // Consolidated Summary (3-Part Operational Narrative)
   if (c.consolidated_summary) {
     document.getElementById("summary-headline").textContent = c.consolidated_summary.headline;
     document.getElementById("summary-assessment").textContent = c.consolidated_summary.risk_assessment;
     document.getElementById("summary-confidence").textContent = `Confidence: ${(c.consolidated_summary.confidence_score * 100).toFixed(0)}%`;
 
-    const findingsList = document.getElementById("summary-findings-list");
-    findingsList.innerHTML = c.consolidated_summary.key_findings.map((f) => `<li>${f}</li>`).join("");
+    // 1. Case Beginning (Genesis & Baseline)
+    const beginningList = document.getElementById("summary-beginning-list");
+    if (beginningList) {
+      const beginningItems = c.consolidated_summary.case_beginning || c.consolidated_summary.key_findings.slice(0, 3);
+      beginningList.innerHTML = beginningItems.map((f) => `<li>${f}</li>`).join("");
+    }
 
+    // 2. Key Events Happened (Forensic Attack Timeline)
+    const eventsList = document.getElementById("summary-events-list");
+    if (eventsList) {
+      const eventItems = c.consolidated_summary.key_events_happened || c.consolidated_summary.key_findings.slice(2);
+      eventsList.innerHTML = eventItems.map((e) => `<li>${e}</li>`).join("");
+    }
+
+    // Legacy findings list for backward compatibility
+    const findingsList = document.getElementById("summary-findings-list");
+    if (findingsList) {
+      findingsList.innerHTML = c.consolidated_summary.key_findings.map((f) => `<li>${f}</li>`).join("");
+    }
+
+    // 3. Next Steps Plan (Prescriptive SOP Remediation)
     const stepsList = document.getElementById("summary-steps-list");
     stepsList.innerHTML = c.consolidated_summary.next_step_plan.map((s) => `<li>${s}</li>`).join("");
 
@@ -997,6 +1015,11 @@ const LOCALIZED_SCRIPTS = {
     en: "Ramesh Patil, alert: A cloned silicone biometric fingerprint was presented at a rural Micro-ATM CSP kiosk in Bihar attempting an AEPS cash withdrawal of ₹30,000. Your biometric lock has been engaged per UIDAI safety protocol.",
     hi: "रमेश पाटिल जी, सूचना: बिहार के एक ग्रामीण माइक्रो-एटीएम सीएसपी कियोस्क पर नकली सिलिकॉन फिंगरप्रिंट लगाकर ₹30,000 निकालने का प्रयास पकड़ा गया है। यूआईडीएआई (UIDAI) सुरक्षा नियमों के तहत आपका बायोमेट्रिक लॉक कर दिया गया है।",
     mr: "रमेश पाटील जी, महत्त्वाची सूचना: बिहार येथील मायक्रो-एटीएम केंद्रावर बनावट सिलिकॉन अंगठ्याचा वापर करून ₹३०,००० काढण्याचा प्रयत्न रोखण्यात आला आहे. आधार बायोमेट्रिक सुरक्षा तात्काळ लॉक करण्यात आली आहे."
+  },
+  "CASE-ONL-6610": {
+    en: "Good day Ananya Deshpande, this is your bank's fraud monitoring desk. We intercepted a suspicious international online payment of ₹2,75,000 to UK Crypto Exchange attempted over a Tor exit node just minutes after an interaction on a cloned electricity bill payment site. Have you attempted to pay an electricity bill online today?",
+    hi: "नमस्ते अनन्या देशपांडे जी, बैंक फ्रॉड मॉनिटरिंग सेल से कॉल है। बिजली बिल भुगतान के नाम पर बनी फर्जी वेबसाइट द्वारा आपके कार्ड क्रेडेंशियल चोरी कर यूके क्रिप्टो एक्सचेंज पर ₹2,75,000 का ऑनलाइन भुगतान करने का प्रयास किया गया। क्या आपने आज बिजली बिल भरा था?",
+    mr: "नमस्कार अनन्या देशपांडे जी, बँक सायबर फसवणूक प्रतिबंधक विभागाकडून संपर्क. महावितरण वीज बिल भरण्याच्या बनावट पोर्टलवरून आपले कार्ड तपशील चोरून युके येथील क्रिप्टो एक्सचेंजवर ₹२,७५,००० चा ऑनलाइन व्यवहार रोखण्यात आला आहे. काय आपण आज वीज बिल भरण्याचा प्रयत्न केला होता?"
   }
 };
 

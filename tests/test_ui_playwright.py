@@ -68,6 +68,16 @@ async def test_playwright_red_and_green_flags_display():
         confidence = await page.locator("#summary-confidence").text_content()
         assert "Confidence:" in confidence
 
+        # Verify 3-Part Operational Narrative lists
+        beginning_count = await page.locator("#summary-beginning-list li").count()
+        assert beginning_count >= 1
+
+        events_count = await page.locator("#summary-events-list li").count()
+        assert events_count >= 1
+
+        steps_count = await page.locator("#summary-steps-list li").count()
+        assert steps_count >= 1
+
         # Verify Red Flags Count
         red_count = await page.locator("#red-flags-count").text_content()
         assert int(red_count) >= 1

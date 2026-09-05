@@ -32,6 +32,8 @@ class ConsolidatedSummary(BaseModel):
     risk_assessment: str
     confidence_score: float = Field(ge=0.0, le=1.0)
     key_findings: List[str]
+    case_beginning: Optional[List[str]] = None
+    key_events_happened: Optional[List[str]] = None
     suggested_investigator_script: Optional[str] = None
     next_step_plan: List[str]
 

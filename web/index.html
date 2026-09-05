@@ -238,17 +238,44 @@
                 <p id="summary-assessment">Multiple critical policy violations detected.</p>
               </div>
 
-              <div class="summary-grid">
-                <div class="findings-box">
-                  <h3>Key Investigation Findings</h3>
-                  <ul id="summary-findings-list" class="findings-list">
-                    <!-- Dynamic findings -->
+              <div class="summary-grid summary-grid-3col">
+                <div class="narrative-card beginning-card">
+                  <div class="narrative-card-header">
+                    <div class="narrative-title-group">
+                      <span class="narrative-icon">🎯</span>
+                      <h3>Case Beginning</h3>
+                    </div>
+                    <span class="narrative-badge beginning-badge">Genesis &amp; Baseline</span>
+                  </div>
+                  <ul id="summary-beginning-list" class="narrative-list">
+                    <!-- Dynamic Case Beginning findings -->
+                  </ul>
+                  <!-- Fallback container for backward compatibility -->
+                  <ul id="summary-findings-list" class="findings-list hidden"></ul>
+                </div>
+
+                <div class="narrative-card events-card">
+                  <div class="narrative-card-header">
+                    <div class="narrative-title-group">
+                      <span class="narrative-icon">⚡</span>
+                      <h3>Key Events Happened</h3>
+                    </div>
+                    <span class="narrative-badge events-badge">Forensic Attack Timeline</span>
+                  </div>
+                  <ul id="summary-events-list" class="narrative-list">
+                    <!-- Dynamic Key Events list -->
                   </ul>
                 </div>
 
-                <div class="action-plan-box">
-                  <h3>Recommended SOP Next Steps</h3>
-                  <ol id="summary-steps-list" class="steps-list">
+                <div class="narrative-card steps-card">
+                  <div class="narrative-card-header">
+                    <div class="narrative-title-group">
+                      <span class="narrative-icon">🛡️</span>
+                      <h3>Next Steps</h3>
+                    </div>
+                    <span class="narrative-badge steps-badge">Prescriptive SOP Plan</span>
+                  </div>
+                  <ol id="summary-steps-list" class="steps-list narrative-steps-list">
                     <!-- Dynamic steps -->
                   </ol>
                 </div>
@@ -650,6 +677,14 @@
               <strong>AEPS-3209: Aadhaar Biometric Spoofing (₹30,000)</strong>
             </div>
             <p>Ramesh Patil (Nagpur): Cloned silicone fingerprint detected at remote rural Micro-ATM CSP kiosk in Bihar.</p>
+          </div>
+
+          <div class="sim-card" data-scenario="7">
+            <div class="sim-card-header">
+              <span class="sim-badge critical">CRITICAL</span>
+              <strong>ONL-6610: Phishing Payment Gateway (₹2,75,000)</strong>
+            </div>
+            <p>Ananya Deshpande (Pune): Fake electricity bill payment portal steals card &amp; token; instant Manchester Tor checkout.</p>
           </div>
         </div>
       </div>
