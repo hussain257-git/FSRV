@@ -38,6 +38,13 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Simulate Alert
         </button>
+        <button id="btn-export-dossier" class="btn btn-secondary" title="Export Official Case Dossier with Cryptographic Seal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Export Dossier
+        </button>
+        <button id="btn-theme-toggle" class="btn btn-ghost" title="Toggle Dark/Light Mode">
+          <span id="theme-toggle-icon">🌙</span>
+        </button>
         <button id="btn-reset" class="btn btn-ghost" title="Re-orchestrate all seed cases">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
         </button>
@@ -101,11 +108,36 @@
               <div class="banner-right">
                 <div class="risk-gauge-box">
                   <div class="gauge-label">Cognitive Risk Score</div>
-                  <div class="gauge-value-wrap">
-                    <span id="risk-score-num" class="risk-score-number">98</span>
-                    <span class="risk-score-max">/100</span>
+                  <div class="speedometer-container">
+                    <svg class="speedometer-svg" viewBox="0 0 160 110">
+                      <defs>
+                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stop-color="#10b981" />
+                          <stop offset="45%" stop-color="#f59e0b" />
+                          <stop offset="85%" stop-color="#ef4444" />
+                        </linearGradient>
+                        <filter id="gaugeGlow" x="-20%" y="-20%" width="140%" height="140%">
+                          <feGaussianBlur stdDeviation="3" result="blur" />
+                          <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                          </feMerge>
+                        </filter>
+                      </defs>
+                      <path class="gauge-track" d="M 22 100 A 58 58 0 1 1 138 100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="11" stroke-linecap="round" />
+                      <path id="gauge-meter-path" class="gauge-meter" d="M 22 100 A 58 58 0 1 1 138 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="11" stroke-linecap="round" stroke-dasharray="228" stroke-dashoffset="10" filter="url(#gaugeGlow)" />
+                      <circle cx="22" cy="100" r="2.5" fill="#10b981" />
+                      <circle cx="80" cy="42" r="2.5" fill="#f59e0b" />
+                      <circle cx="138" cy="100" r="2.5" fill="#ef4444" />
+                    </svg>
+                    <div class="gauge-center-content">
+                      <div class="gauge-value-wrap">
+                        <span id="risk-score-num" class="risk-score-number">98</span>
+                        <span class="risk-score-max">/100</span>
+                      </div>
+                      <div id="risk-severity-pill" class="risk-severity-pill critical">CRITICAL RISK</div>
+                    </div>
                   </div>
-                  <div id="risk-severity-pill" class="risk-severity-pill critical">CRITICAL RISK</div>
                 </div>
               </div>
             </div>
@@ -153,6 +185,31 @@
                 <!-- Loaded dynamically -->
               </div>
             </div>
+
+            <!-- Interactive Geolocation Threat Vector Map -->
+            <div class="geo-threat-card">
+              <div class="geo-threat-header">
+                <div class="geo-threat-title">
+                  <span class="pulse-dot red"></span>
+                  <strong>Live Geolocation Threat Vector &amp; Trajectory Radar</strong>
+                </div>
+                <div class="geo-threat-badges">
+                  <span id="geo-threat-dist-pill" class="geo-stat-pill">📍 5,820 km hop</span>
+                  <span id="geo-threat-speed-pill" class="geo-stat-pill alert">⚡ 87,300 km/h (Anomaly)</span>
+                  <span id="geo-threat-asn-pill" class="geo-stat-pill">🌐 AS37148 / VPN Node</span>
+                </div>
+              </div>
+              <div class="geo-map-viewport">
+                <svg id="geo-radar-svg" class="geo-radar-svg" viewBox="0 0 820 220">
+                  <!-- Generated dynamically: Coordinate grid, continents, and animated geodesic arc with traveling photon -->
+                </svg>
+                <div class="geo-map-legend">
+                  <div class="legend-item"><span class="legend-dot home"></span> <strong>Home:</strong> <span id="legend-home-text">Mumbai, MH</span></div>
+                  <div class="legend-item"><span class="legend-dot origin"></span> <strong>Origin:</strong> <span id="legend-origin-text">Lagos, NG (VPN)</span></div>
+                  <div class="legend-item"><span class="legend-dot channel"></span> <strong>Gateway:</strong> <span id="legend-channel-text">IMPS / Binance</span></div>
+                </div>
+              </div>
+            </div>
           </section>
 
           <!-- Consolidated Summary (The AI Multi-Agent Core) -->
@@ -163,6 +220,10 @@
                 <h2>Consolidated Case Summary &amp; Next-Step Plan</h2>
               </div>
               <div class="header-actions-wrap">
+                <button type="button" id="btn-open-ncrp" class="btn-ncrp-action" title="Open Official 1930 NCRP Cyber Fraud Submission Modal">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  <span>1930 NCRP Sync</span>
+                </button>
                 <button type="button" id="btn-copy-dossier" class="btn-copy-dossier" title="Copy incident summary for 1930 Cyber Fraud Portal">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                   <span>Copy 1930 Dossier</span>
@@ -198,12 +259,19 @@
                 <div class="script-header">
                   <div class="script-title-group">
                     <span class="script-icon">💬</span>
-                    <span class="script-title">Investigator Customer Phone Script (Natural English)</span>
+                    <span class="script-title">Investigator Customer Phone Script</span>
                   </div>
-                  <button type="button" id="btn-speak-script" class="btn-audio-speak" title="Listen to spoken audio call script">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                    <span>Listen to Script</span>
-                  </button>
+                  <div class="script-controls-right">
+                    <div class="lang-switcher-chips">
+                      <button type="button" class="lang-chip active" data-lang="en">English</button>
+                      <button type="button" class="lang-chip" data-lang="hi">हिन्दी (Hindi)</button>
+                      <button type="button" class="lang-chip" data-lang="mr">मराठी (Marathi)</button>
+                    </div>
+                    <button type="button" id="btn-speak-script" class="btn-audio-speak" title="Listen to spoken audio call script">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                      <span>Listen to Script</span>
+                    </button>
+                  </div>
                 </div>
                 <p id="summary-script" class="script-text">
                   "Good day Rajesh Kumar Sharma, this is your bank's fraud containment desk..."
@@ -286,6 +354,23 @@
                   </div>
                 </div>
                 <p id="prof-summary-text" class="tab-detail-text"></p>
+
+                <!-- Mule Fund Flow Topology Visualizer -->
+                <div class="mule-network-panel" id="mule-network-panel">
+                  <div class="mule-network-header">
+                    <div class="mule-title">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="6" r="3"></circle><circle cx="12" cy="18" r="3"></circle><line x1="8.5" y1="7.5" x2="15.5" y2="7.5"></line><line x1="7.5" y1="8.5" x2="10.5" y2="15.5"></line><line x1="16.5" y1="8.5" x2="13.5" y2="15.5"></line></svg>
+                      <strong>Fund Dispersion &amp; Mule Account Layering Topology</strong>
+                      <span id="mule-badge" class="mule-badge-pill">Layer 1 &amp; Layer 2 Active</span>
+                    </div>
+                    <button type="button" id="btn-mule-freeze" class="btn btn-sm btn-danger">🚫 Freeze Layer 2 Tree</button>
+                  </div>
+                  <div class="mule-canvas-wrap">
+                    <svg id="mule-flow-svg" class="mule-flow-svg" viewBox="0 0 760 220">
+                      <!-- Rendered by app.js: Victims -> Mule Central Node -> Layer 2 Outflows -->
+                    </svg>
+                  </div>
+                </div>
               </div>
 
               <!-- History Tab -->
@@ -352,6 +437,52 @@
                   <div class="policy-meta-row">
                     <strong>Alternative Options:</strong>
                     <span id="policy-alternatives">RESTRICT_CARD, ESCALATE_TIER2</span>
+                  </div>
+                </div>
+
+                <!-- What-If Policy Simulation Sandbox -->
+                <div class="whatif-sandbox-card">
+                  <div class="whatif-header">
+                    <div class="whatif-title">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                      <strong>"What-If" Counterfactual Policy Simulator</strong>
+                    </div>
+                    <button type="button" id="btn-whatif-reset" class="btn btn-sm btn-ghost">Reset to Real-Time Data</button>
+                  </div>
+                  <p class="whatif-subtitle">Simulate how cognitive policy decisions shift under hypothetical conditions:</p>
+                  <div class="whatif-controls-grid">
+                    <div class="whatif-control-item">
+                      <label class="whatif-switch">
+                        <input type="checkbox" id="whatif-travel" />
+                        <span class="whatif-slider-round"></span>
+                      </label>
+                      <span class="whatif-label">Customer Pre-Filed Travel Notice</span>
+                    </div>
+                    <div class="whatif-control-item">
+                      <label class="whatif-switch">
+                        <input type="checkbox" id="whatif-device" />
+                        <span class="whatif-slider-round"></span>
+                      </label>
+                      <span class="whatif-label">Device Registered &gt; 30 Days (Known Hardware)</span>
+                    </div>
+                    <div class="whatif-control-item full-width">
+                      <div class="whatif-slider-header">
+                        <span class="whatif-label">Biometric Liveness Match Confidence</span>
+                        <strong id="whatif-bio-val" class="font-mono">15%</strong>
+                      </div>
+                      <input type="range" id="whatif-bio-slider" min="0" max="100" value="15" class="whatif-range-input" />
+                    </div>
+                  </div>
+                  <!-- Simulated Output Result -->
+                  <div class="whatif-result-box" id="whatif-result-box">
+                    <div class="whatif-result-left">
+                      <span class="whatif-res-tag">Simulated Policy Reaction:</span>
+                      <strong id="whatif-sim-action" class="whatif-action-pill danger">BLOCK_ACCOUNT</strong>
+                      <span id="whatif-sim-score" class="whatif-score-pill">Simulated Risk: 98/100</span>
+                    </div>
+                    <p id="whatif-sim-rationale" class="whatif-rationale-text">
+                      High-risk foreign IP combined with low biometric confidence mandates immediate account block under SOP-SEC-802.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -524,6 +655,105 @@
       </div>
       <div class="modal-footer">
         <button id="btn-sim-cancel" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1-Click 1930 NCRP Cyber Crime Portal Modal -->
+  <div id="ncrp-modal" class="modal-overlay hidden">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header ncrp-header">
+        <div class="ncrp-header-title">
+          <div class="ncrp-emblem">🇮🇳</div>
+          <div>
+            <h3>National Cyber Crime Reporting Portal (1930 / NCRP)</h3>
+            <span class="ncrp-sub">CFCFRMS Electronic Dispute Escalation &amp; Bank Inter-Lien Freeze</span>
+          </div>
+        </div>
+        <button id="btn-ncrp-close" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="ncrp-grid">
+          <div class="ncrp-field">
+            <label>NCRP Acknowledgment Draft ID</label>
+            <input type="text" id="ncrp-ack-id" class="ncrp-input font-mono" readonly value="NCRP-MHA-2026-99214" />
+          </div>
+          <div class="ncrp-field">
+            <label>Bank Lead Officer</label>
+            <input type="text" class="ncrp-input" readonly value="Sarah Jenkins (OFD-ANALYST-409)" />
+          </div>
+          <div class="ncrp-field">
+            <label>Complainant / Victim</label>
+            <input type="text" id="ncrp-victim-name" class="ncrp-input" readonly />
+          </div>
+          <div class="ncrp-field">
+            <label>Victim Account &amp; IFSC</label>
+            <input type="text" id="ncrp-victim-acct" class="ncrp-input font-mono" readonly />
+          </div>
+          <div class="ncrp-field">
+            <label>Disputed Transaction UTR / RRN</label>
+            <input type="text" id="ncrp-tx-utr" class="ncrp-input font-mono highlight" readonly />
+          </div>
+          <div class="ncrp-field">
+            <label>Disputed Amount (INR)</label>
+            <input type="text" id="ncrp-amount" class="ncrp-input font-mono highlight" readonly />
+          </div>
+          <div class="ncrp-field">
+            <label>Suspect Destination Entity / VPA</label>
+            <input type="text" id="ncrp-dest-entity" class="ncrp-input font-mono" readonly />
+          </div>
+          <div class="ncrp-field">
+            <label>Origin Ingestion IP &amp; Geolocation</label>
+            <input type="text" id="ncrp-origin-ip" class="ncrp-input font-mono" readonly />
+          </div>
+        </div>
+        <!-- Progress Steps Animation -->
+        <div id="ncrp-transmitting-box" class="ncrp-transmitting-box hidden">
+          <div class="ncrp-step active" id="ncrp-step-1">
+            <span class="step-dot"></span> <span>1. Connecting to I4C / NCRP National Cyber Hotline switch...</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="ncrp-step" id="ncrp-step-2">
+            <span class="step-dot"></span> <span>2. Dispatching NPCI Central Switch Lien Hold across 42 Member Banks...</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="ncrp-step" id="ncrp-step-3">
+            <span class="step-dot"></span> <span>3. FIR Complaint Docket &amp; Digital Hash Signed.</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer ncrp-footer">
+        <button id="btn-ncrp-cancel" class="btn btn-secondary">Close</button>
+        <button id="btn-ncrp-download-json" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download JSON Packet
+        </button>
+        <button id="btn-ncrp-submit" class="btn btn-primary btn-submit-ncrp">
+          <span>⚡ Submit &amp; Freeze Inter-Bank Network</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Branded Case Dossier Export Modal -->
+  <div id="dossier-modal" class="modal-overlay hidden">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-header">
+        <div class="dossier-modal-title">
+          <h3>Official OFD Investigation Case Dossier</h3>
+          <span class="dossier-confidential-tag">STRICTLY CONFIDENTIAL • RBI COMPLIANT</span>
+        </div>
+        <button id="btn-dossier-close" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body dossier-print-content" id="dossier-print-content">
+        <!-- Printable formal bank document with watermark and QR code -->
+      </div>
+      <div class="modal-footer">
+        <button id="btn-dossier-cancel" class="btn btn-secondary">Close</button>
+        <button id="btn-dossier-print" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Print / Save PDF Dossier
+        </button>
       </div>
     </div>
   </div>

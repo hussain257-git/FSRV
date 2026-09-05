@@ -219,3 +219,114 @@ async def test_playwright_policy_chat_qna():
 
         await browser.close()
 
+@pytest.mark.asyncio
+async def test_playwright_rich_visual_enhancements():
+    """
+    Playwright Test 7: Verify all 8 Rich Visual Enhancements:
+    - Speedometer Radial SVG Gauge
+    - Interactive Geolocation Threat Map
+    - Multi-Lingual Customer Script (Hindi / Marathi)
+    - 1-Click 1930 NCRP Cyber Crime Portal Modal
+    - Dark / Light Theme Toggle
+    - Branded Official Case Dossier Export Modal
+    """
+    async with async_playwright() as p:
+        browser = await get_browser(p)
+        page = await browser.new_page()
+        await page.goto(f"{BASE_URL}/", wait_until="domcontentloaded")
+
+        # 1. Theme Toggle
+        theme_btn = page.locator("#btn-theme-toggle")
+        assert await theme_btn.is_visible()
+        await theme_btn.click()
+        has_light = await page.evaluate("document.body.getAttribute('data-theme') === 'light'")
+        assert has_light
+        await theme_btn.click()
+        has_dark = await page.evaluate("!document.body.getAttribute('data-theme')")
+        assert has_dark
+
+        # 2. SVG Speedometer Gauge
+        meter = page.locator("#gauge-meter-path")
+        assert await meter.is_visible()
+        offset = await meter.get_attribute("stroke-dashoffset")
+        assert offset is not None
+
+        # 3. Geolocation Threat Vector Map
+        map_svg = page.locator("#geo-radar-svg")
+        assert await map_svg.is_visible()
+        dist_pill = await page.locator("#geo-threat-dist-pill").text_content()
+        assert "km" in dist_pill
+
+        # 4. Multi-Lingual Customer Script Switcher
+        # Switch to Hindi
+        await page.click("button.lang-chip[data-lang='hi']")
+        script_hi = await page.locator("#summary-script").text_content()
+        assert "नमस्ते" in script_hi or "धोखाधड़ी" in script_hi or "बैंक" in script_hi
+
+        # Switch to Marathi
+        await page.click("button.lang-chip[data-lang='mr']")
+        script_mr = await page.locator("#summary-script").text_content()
+        assert "नमस्कार" in script_mr or "बँक" in script_mr
+
+        # Switch back to English
+        await page.click("button.lang-chip[data-lang='en']")
+        script_en = await page.locator("#summary-script").text_content()
+        assert "Good day" in script_en or "Hello" in script_en
+
+        # 5. 1-Click 1930 NCRP Cyber Crime Portal Modal
+        await page.click("#btn-open-ncrp")
+        await page.wait_for_selector("#ncrp-modal", state="visible")
+        victim_val = await page.locator("#ncrp-victim-name").input_value()
+        assert len(victim_val) > 3
+        amount_val = await page.locator("#ncrp-amount").input_value()
+        assert "₹" in amount_val
+        await page.click("#btn-ncrp-cancel")
+        await page.wait_for_selector("#ncrp-modal", state="hidden")
+
+        # 6. Branded Official Case Dossier Export Modal
+        await page.click("#btn-export-dossier")
+        assert await page.is_visible("#dossier-modal:not(.hidden)")
+        dossier_text = await page.locator("#dossier-print-content").text_content()
+        assert "BHARAT FINANCIAL INTELLIGENCE" in dossier_text
+        assert "CONFIDENTIAL" in dossier_text
+        await page.click("#btn-dossier-cancel")
+        await page.wait_for_selector("#dossier-modal", state="hidden")
+
+        await browser.close()
+
+@pytest.mark.asyncio
+async def test_playwright_whatif_sandbox_and_mule_topology():
+    """
+    Playwright Test 8: Verify "What-If" Counterfactual Simulation Sandbox
+    and Mule Account Layering Fund Flow Graph.
+    """
+    async with async_playwright() as p:
+        browser = await get_browser(p)
+        page = await browser.new_page()
+        await page.goto(f"{BASE_URL}/", wait_until="domcontentloaded")
+
+        # 1. Switch to Policy Tab (Tab 4) for What-If Sandbox
+        await page.click("button[data-tab='tab-policy']")
+        assert await page.is_visible("#tab-policy")
+
+        # Verify What-If card
+        assert await page.is_visible(".whatif-sandbox-card")
+        init_action = await page.locator("#whatif-sim-action").text_content()
+        assert "BLOCK" in init_action or "ACTION" in init_action
+
+        # Turn ON Travel Notification & set biometric slider to 90%
+        await page.locator("#whatif-travel").check(force=True)
+        await page.fill("#whatif-bio-slider", "90")
+        await page.dispatch_event("#whatif-bio-slider", "input")
+
+        # Verify simulated policy reaction shifts to DISMISS_FALSE_POSITIVE
+        sim_action = await page.locator("#whatif-sim-action").text_content()
+        assert "DISMISS" in sim_action or "FALSE_POSITIVE" in sim_action
+
+        # 2. Switch to Profiling Tab (Tab 1) for Mule Topology
+        await page.click("button[data-tab='tab-profiling']")
+        assert await page.is_visible("#tab-profiling")
+        assert await page.is_visible("#mule-flow-svg")
+
+        await browser.close()
+
